@@ -37,6 +37,13 @@ TEST(constr, move) {
   }
 }
 
+TEST(destructor, dest_1) {
+  stack<int> test{1, 2, 3, 4, 5};
+  test.~stack();
+  GTEST_ASSERT_EQ(test.size(), 0);
+  GTEST_ASSERT_EQ(test.empty(), 1);
+}
+
 TEST(equal, overload_lvalue_1) {
   stack<int> testa{1, 2, 3};
   stack<int> b2;
@@ -130,13 +137,6 @@ TEST(func, swap) {
   test_5.swap(test_3);
   GTEST_ASSERT_EQ(test_5.size(), 3);
   GTEST_ASSERT_EQ(test_3.size(), 5);
-}
-
-TEST(temp_func, free_stack) {
-  stack<int> test{1, 2, 3, 4, 5};
-  test.free_stack();
-  GTEST_ASSERT_EQ(test.size(), 0);
-  GTEST_ASSERT_EQ(test.empty(), 1);
 }
 
 TEST(extra_func, emplace_front_1) {

@@ -4,24 +4,17 @@
 namespace s21 {
 template <typename T>
 class stack {
- public:
   typedef T value_type;
   typedef T &reference;
   typedef const T &const_reference;
   typedef size_t size_type;
 
- private:
   class Node {
    public:
     Node *prev_;
     value_type item_;
-    explicit Node(value_type item = value_type(), Node *prev = nullptr) {
-      this->item_ = item;
-      this->prev_ = prev;
-    }
+    explicit Node(value_type item, Node *prev) : item_(item), prev_(prev) {}
   };
-  size_type count_;
-  Node *head_;
 
  public:
   stack();
@@ -43,9 +36,11 @@ class stack {
   template <class... Args>
   void emplace_front(T const value, Args &&...args);
 
- public:
-  void free_stack();
+ private:
   static void copy_stack(stack<value_type> &stack, Node *temp);
+
+  size_type m_count_;
+  Node *m_head_;
 };
 }  // namespace s21
 
