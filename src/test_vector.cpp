@@ -447,6 +447,7 @@ TEST(extra_func, emplace_2) {
   vector<int> test_1{2, 3, 4};
   auto it = test_1.begin();
   auto check = test_1.emplace(it, 1);
+  GTEST_ASSERT_EQ(it == check, true);
   GTEST_ASSERT_EQ(test_1[0], 1);
   GTEST_ASSERT_EQ(test_1[1], 2);
   GTEST_ASSERT_EQ(test_1[2], 3);
@@ -458,6 +459,7 @@ TEST(extra_func, emplace_3) {
   vector<int> test_1{1, 2, 3};
   auto it = test_1.end();
   auto check = test_1.emplace(it, 4);
+  GTEST_ASSERT_EQ(it == check, true);
   GTEST_ASSERT_EQ(test_1[0], 1);
   GTEST_ASSERT_EQ(test_1[1], 2);
   GTEST_ASSERT_EQ(test_1[2], 3);
@@ -469,6 +471,7 @@ TEST(extra_func, emplace_4) {
   vector<int> test_1;
   auto it = test_1.begin();
   auto check = test_1.emplace(it, 1, 2, 3, 4);
+  GTEST_ASSERT_EQ(check == it, true);
   GTEST_ASSERT_EQ(test_1[0], 1);
   GTEST_ASSERT_EQ(test_1[1], 2);
   GTEST_ASSERT_EQ(test_1[2], 3);

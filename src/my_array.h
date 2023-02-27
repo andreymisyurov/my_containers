@@ -1,5 +1,5 @@
-#ifndef _SRC_MY_ARRAY_H_
-#define _SRC_MY_ARRAY_H_
+#ifndef SRC_MY_ARRAY_H_
+#define SRC_MY_ARRAY_H_
 
 #include <initializer_list>
 
@@ -25,8 +25,8 @@ class Array {
   ~Array();
 
   auto operator[](size_type in_index)   -> value_type &;
-  auto operator=(const Array &in_other) -> void;
-  auto operator=(Array &&move_other)    -> void;
+  auto operator=(const Array &in_other) -> Array&;
+  auto operator=(Array &&move_other)    -> Array&;
 
   auto begin()                          -> iterator;
   auto end()                            -> iterator;
@@ -102,17 +102,19 @@ typename Array<T, N>::value_type &Array<T, N>::operator[](size_type in_index) {
 }
 
 template <typename T, size_t N>
-void Array<T, N>::operator=(const Array &in_other) {
+Array<T, N> &Array<T, N>::operator=(const Array &in_other) {
   T *m_temp = new T[in_other.m_size];
   memcpy(m_temp, in_other.m_arr, m_size * sizeof(T));
 
   std::swap(this->m_arr, m_temp);
   delete[] m_temp;
+  return *this;
 }
 
 template <typename T, size_t N>
-void Array<T, N>::operator=(Array &&move_other) {
+Array<T, N> &Array<T, N>::operator=(Array &&move_other) {
   swap(move_other);
+  return *this;
 }
 
 template <typename T, size_t N>
@@ -196,7 +198,7 @@ typename Array<T, N>::size_type Array<T, N>::max_size() const {
 
 template <typename T, size_t N>
 bool Array<T, N>::operator==(const Array &in_other) const {
-  for(int i = 0; i < in_other.size(); ++i) {
+  for (int i = 0; i < static_cast<int>(in_other.size()); ++i) {
     if (this->m_arr[i] != in_other.m_arr[i]) {
       return false;
     }
@@ -206,4 +208,4 @@ bool Array<T, N>::operator==(const Array &in_other) const {
 
 }  // namespace victoriv
 
-#endif  // _SRC_MY_ARRAY_H_
+#endif  // SRC_MY_ARRAY_H_

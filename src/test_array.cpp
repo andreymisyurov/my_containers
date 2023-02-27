@@ -106,7 +106,7 @@ TEST(iter, begin_1) {
 TEST(iter, end_1) {
   Array<int, 5> temp_1{1, 2, 3, 4, 5};
   auto it = temp_1.end();
-  GTEST_ASSERT_EQ(*it != 5, 1);
+  GTEST_ASSERT_EQ(it.m_pointer != &temp_1[4], true);
 }
 
 TEST(iter, inctiment) {

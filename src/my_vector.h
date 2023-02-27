@@ -1,5 +1,5 @@
-#ifndef _SRC_MY_VECTOR_H_
-#define _SRC_MY_VECTOR_H_
+#ifndef SRC_MY_VECTOR_H_
+#define SRC_MY_VECTOR_H_
 
 #include <cstring>
 #include <initializer_list>
@@ -156,7 +156,7 @@ typename vector<value_type>::reference vector<value_type>::operator[](size_type 
 template <typename value_type>
 bool vector<value_type>::operator==(const vector &in_other) const {
   if (m_count != in_other.m_count) return false;
-  for (int i = 0; i < m_count; ++i)
+  for (int i = 0; i < static_cast<int>(m_count); ++i)
     if (m_item[i] != in_other.m_item[i]) return false;
   return true;
 }
@@ -339,4 +339,4 @@ typename vector<value_type>::iterator vector<value_type>::end() const {
 
 }  // namespace victoriv
 
-#endif  // _SRC_MY_VECTOR_H_
+#endif  // SRC_MY_VECTOR_H_

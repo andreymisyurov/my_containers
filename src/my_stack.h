@@ -1,5 +1,5 @@
-#ifndef _SRC_MY_STACK_H_
-#define _SRC_MY_STACK_H_
+#ifndef SRC_MY_STACK_H_
+#define SRC_MY_STACK_H_
 
 #include <initializer_list>
 
@@ -45,9 +45,9 @@ class stack {
   class Node {
    public:
     Node(const value_type &in_item, Node *in_prev)
-        : m_item(in_item), m_prev(in_prev) {}
+        : m_prev(in_prev), m_item(in_item) {}
     Node(value_type &&move_item, Node *in_prev)
-        : m_item(std::move(move_item)), m_prev(in_prev) {}
+        : m_prev(in_prev), m_item(std::move(move_item)) {}
     Node *m_prev;
     value_type m_item;
   };
@@ -161,4 +161,4 @@ void stack<value_type>::emplace_front(value_type &&in_value, Args &&...args) {
 
 }  // namespace victoriv
 
-#endif  // _SRC_MY_STACK_H_
+#endif  // SRC_MY_STACK_H_
