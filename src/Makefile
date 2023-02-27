@@ -34,3 +34,7 @@ linter:
 	cp ./../materials/linters/CPPLINT.cfg .
 	-python3 ../materials/linters/cpplint.py *.h
 	rm -rf CPPLINT.cfg a.out
+
+list:
+	g++ list.cpp -std=c++17 -lgtest
+	leaks --atExit -q -- ./a.out
