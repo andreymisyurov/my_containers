@@ -2,9 +2,9 @@
 
 #include <array>
 
-#include "s21_array.h"
+#include "my_array.h"
 
-using namespace s21;
+using namespace victoriv;
 
 TEST(constr, defo) {
   ;

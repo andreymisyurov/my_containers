@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "s21_stack.h"
+#include "my_stack.h"
 
-using namespace s21;
+using namespace victoriv;
 
 TEST(constr, defolt_1) { stack<int> testa{}; }
 

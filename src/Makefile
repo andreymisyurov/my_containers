@@ -15,12 +15,12 @@ test_set:
 test_arr:
 	g++ test_array.cpp -std=c++17 -lgtest
 	leaks --atExit -q -- ./a.out
-	-cppcheck --language=c++ --enable=all --std=c++17 s21_array.inl s21_array.h $(SUPL)
+	-cppcheck --language=c++ --enable=all --std=c++17 my_array.h $(SUPL)
 
 test_stack:
 	g++ test_stack.cpp -std=c++17 -lgtest
 	leaks --atExit -q -- ./a.out
-	-cppcheck --language=c++ --enable=all --std=c++17 s21_stack.inl s21_stack.h $(SUPL)
+	-cppcheck --language=c++ --enable=all --std=c++17 s21_stack.inl my_stack.h $(SUPL)
 
 test_vector:
 	g++ test_vector.cpp -std=c++17 -lgtest
@@ -32,9 +32,14 @@ clean:
 
 linter: 
 	cp ./../materials/linters/CPPLINT.cfg .
-	-python3 ../materials/linters/cpplint.py *.h
+	-python3 ../materials/linters/cpplint.py my_stack.h
 	rm -rf CPPLINT.cfg a.out
 
 list:
 	g++ list.cpp -std=c++17 -lgtest
 	leaks --atExit -q -- ./a.out
+
+clang:
+	cp ./../materials/linters/.clang-format .
+	-clang-format --sort-includes --style=Google -i my_stack.h
+	-rm .clang-format
