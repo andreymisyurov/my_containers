@@ -1,7 +1,7 @@
 # My Container Class Implementation.
 
 
-This project implements various containers, including:
+#### This project implements various containers, including:
 - Vector<br>
 - Array<br>
 - Stack<br>
@@ -16,23 +16,6 @@ The functions perform similar actions to those in STL containers, and all you ne
 
 (P.S. I also implemented List, Set, and Multiset, but I wrote this code eight months ago, and I want and planning to refactor them when I have free time.)<br>
 
-#### Containers such as:
-- Vector<br>
-- Array<br>
-- Stack<br>
-  were developed in this project.
-
-Any container works fine with primitive data types like int, char, double, float etc
-`make test` command will run tests in your local machine
-`make docker-test` command will run tests in an ubuntu docker container
-`make docker-rm` command will remove an image and a docker container
-
-Functions for the most part perform the same actions as in stl containers.
-Just `#include need_container.h`
-
-(Also List, Set, Multiset, but I wrote this code 8 months ago,
-and now I'm a little ashamed of it. Therefore, they need to be refactored.
-I implement as I have free time)
 
 ## Stack
 ![](misc/stack01.png)
