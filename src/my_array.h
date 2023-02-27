@@ -35,11 +35,13 @@ class Array {
   auto back()                           -> const value_type &;
 
   auto at(size_type in_index)           -> value_type &;
-  auto size()                           -> size_type;
-  auto max_size()                       -> size_type;
-  auto empty()                          -> bool;
+  auto max_size() const                 -> size_type;
+  auto size() const                     -> size_type;
+  auto empty() const                    -> bool;
   auto swap(Array &inout_other)         -> void;
   auto fill(value_type const &in_value)  -> void;
+
+  auto operator==(const Array &in_other) const -> bool;
 
  private:
   value_type *m_arr = nullptr;
@@ -48,6 +50,7 @@ class Array {
  private:
   class iterator {
    public:
+    value_type *m_pointer;
     explicit iterator(value_type *in_point) : m_pointer(in_point) {}
     value_type &operator*() { return *m_pointer; }
     const value_type &operator*() const { return *m_pointer; }
@@ -65,9 +68,6 @@ class Array {
       ++m_pointer;
       return *this;
     }
-
-   private:
-    value_type *m_pointer;
   };
 };
 
@@ -103,20 +103,16 @@ typename Array<T, N>::value_type &Array<T, N>::operator[](size_type in_index) {
 
 template <typename T, size_t N>
 void Array<T, N>::operator=(const Array &in_other) {
-  if (m_size != in_other.m_size) {
-    throw std::invalid_argument("Size isn't equals");
-  }
-  this->~Array();
-  m_arr = new value_type[m_size];
-  memcpy(m_arr, in_other.m_arr, m_size);
+  T *m_temp = new T[in_other.m_size];
+  memcpy(m_temp, in_other.m_arr, m_size * sizeof(T));
+
+  std::swap(this->m_arr, m_temp);
+  delete[] m_temp;
 }
 
 template <typename T, size_t N>
 void Array<T, N>::operator=(Array &&move_other) {
-  if (m_size != move_other.m_size) {
-    throw std::invalid_argument("Size isn't equals");
-  }
-  swap(*this, move_other);
+  swap(move_other);
 }
 
 template <typename T, size_t N>
@@ -127,7 +123,7 @@ Array<T, N>::~Array() {
 template <typename T, size_t N>
 typename Array<T, N>::iterator Array<T, N>::begin() {
   if (m_size < 2) {
-    throw std::out_of_range("We haven't begin iterator");
+    throw std::out_of_range("We haven't got begin iterator");
   }
   iterator temp(m_arr);
   return temp;
@@ -136,7 +132,7 @@ typename Array<T, N>::iterator Array<T, N>::begin() {
 template <typename T, size_t N>
 typename Array<T, N>::iterator Array<T, N>::end() {
   if (m_size < 2) {
-    throw std::out_of_range("We haven't end iterator");
+    throw std::out_of_range("We haven't got end iterator");
   }
   iterator temp(m_arr + m_size - 1);
   return temp;
@@ -172,15 +168,12 @@ typename Array<T, N>::value_type &Array<T, N>::at(size_type in_index) {
 }
 
 template <typename T, size_t N>
-bool Array<T, N>::empty() {
+bool Array<T, N>::empty() const {
   return m_size == 1;
 }
 
 template <typename T, size_t N>
 void Array<T, N>::swap(Array &inout_other) {
-  if (m_size != inout_other.m_size) {
-    throw std::invalid_argument("Size isn't equals");
-  }
   std::swap(m_arr, inout_other.m_arr);
 }
 
@@ -192,13 +185,23 @@ void Array<T, N>::fill(value_type const &in_value) {
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::size_type Array<T, N>::size() {
+typename Array<T, N>::size_type Array<T, N>::size() const {
   return m_size - 1;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::size_type Array<T, N>::max_size() {
+typename Array<T, N>::size_type Array<T, N>::max_size() const {
   return size();
+}
+
+template <typename T, size_t N>
+bool Array<T, N>::operator==(const Array &in_other) const {
+  for(int i = 0; i < in_other.size(); ++i) {
+    if (this->m_arr[i] != in_other.m_arr[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 }  // namespace victoriv

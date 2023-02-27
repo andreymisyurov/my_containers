@@ -156,11 +156,31 @@ TEST(iter, back) {
   GTEST_ASSERT_EQ(it, 5);
 }
 
-TEST(constr, stl) {
-  std::array<int, 5> temp{1, 2, 3, 4, 5};
-  auto l = temp.front();
-  //   std::array<int, 6> test(std::move(temp));
-  std::cout << l;
+TEST(equal, equal_1) {
+Array<int, 5> arr_1{0, -2, 13, 44, -5};
+Array<int, 5> arr_2{1, 2, 3, 4, 5};
+GTEST_ASSERT_EQ(arr_1 == arr_2, false);
+}
+
+TEST(equal, equal_2) {
+Array<int, 5> arr_1{1, 2, 3, 4, 5};
+Array<int, 5> arr_2{1, 2, 3, 4, 5};
+GTEST_ASSERT_EQ(arr_1 == arr_2, true);
+}
+
+TEST(constr, equal_1) {
+  Array<int, 5> arr_1{10, -2, 13, 44, -5};
+  Array<int, 5> arr_2{1, 2, 3, 4, 5};
+  arr_1 = arr_2;
+  Array<int, 5> result{1, 2, 3, 4, 5};
+  GTEST_ASSERT_EQ(arr_1 == result, true);
+}
+
+TEST(constr, equal_2) {
+  Array<int, 5> arr_1{10, -2, 13, 44, -5};
+  arr_1 = arr_1;
+  Array<int, 5> result{10, -2, 13, 44, -5};
+  GTEST_ASSERT_EQ(arr_1 == result, true);
 }
 
 int main() {

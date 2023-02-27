@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "s21_vector.h"
+#include "my_vector.h"
+
+using namespace victoriv;
 
 TEST(constr, defolt_1) { vector<int> testa; }
 
@@ -507,6 +509,25 @@ TEST(extra_func, emplace_back_3) {
   GTEST_ASSERT_EQ(test_1[3], 4);
   GTEST_ASSERT_EQ(test_1[4], 5);
   GTEST_ASSERT_EQ(test_1.size(), 5);
+}
+
+TEST(equal, copy_1) {
+vector<int> test_1{1, 2, 3, 4, 5};
+vector<int> result{1, 2, 3, 4, 5};
+test_1 = test_1;
+GTEST_ASSERT_EQ(result == test_1, true);
+}
+
+TEST(equal, eq_1) {
+vector<int> test_1{1, 2, 3, 4, 5};
+vector<int> result{1, 2, 3, 4, 4};
+GTEST_ASSERT_EQ(result == test_1, false);
+}
+
+TEST(equal, eq_2) {
+vector<int> test_1{1, 2, 3, 4, 5};
+vector<int> result{1, 2, 3, 4, 5, 3};
+GTEST_ASSERT_EQ(result == test_1, false);
 }
 
 int main() {

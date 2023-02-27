@@ -25,14 +25,14 @@ test_stack:
 test_vector:
 	g++ test_vector.cpp -std=c++17 -lgtest
 	leaks --atExit -q -- ./a.out
-	-cppcheck --language=c++ --enable=all --std=c++17 s21_vector.inl s21_vector.h $(SUPL)
+	-cppcheck --language=c++ --enable=all --std=c++17 my_vector.h $(SUPL)
 
 clean:
 	rm -rf a.out *.gch *.dSYM *.o
 
 linter: 
 	cp ./../materials/linters/CPPLINT.cfg .
-	-python3 ../materials/linters/cpplint.py my_stack.h
+	-python3 ../materials/linters/cpplint.py my_vector.h
 	rm -rf CPPLINT.cfg a.out
 
 list:
@@ -41,5 +41,5 @@ list:
 
 clang:
 	cp ./../materials/linters/.clang-format .
-	-clang-format --sort-includes --style=Google -i my_stack.h
+	-clang-format --sort-includes --style=Google -i my_vector.h
 	-rm .clang-format
